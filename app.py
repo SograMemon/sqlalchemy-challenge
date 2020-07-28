@@ -134,11 +134,14 @@ def start(start):
 
     session.close()
 
+
     # Create a dictionary from the row data and append to a list of all_measurements
     all_measurements = []
     for tmin, tavg, tmax in results:
         measurements_dict = {}
         measurements_dict["Tmin"] = tmin
+        if measurements_dict["Tmin"] == None:
+            return jsonify({"error": f"start date {start} not found."}), 404
         measurements_dict["Tavg"] = tavg
         measurements_dict["Tmax"] = tmax
         
@@ -171,6 +174,8 @@ def startend(start, end):
     for tmin, tavg, tmax in results:
         measurements_dict = {}
         measurements_dict["Tmin"] = tmin
+        if measurements_dict["Tmin"] == None:
+            return jsonify({"error": f"start date {start} not found."}), 404
         measurements_dict["Tavg"] = tavg
         measurements_dict["Tmax"] = tmax
         
